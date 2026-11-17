@@ -1,0 +1,22 @@
+# OS が自動生成するファイル
+.DS_Store
+Thumbs.db
+
+# Node / npm 関連
+node_modules/
+npm-debug.log*
+
+# VBA / Excel 生成物
+*.xlsm
+*.xlam
+*.xlsx
+*.xlsb
+*.xls
+
+# 画像・PDF 出力（自動生成物は Git 管理しない方が楽です）
+*.png
+*.jpg
+*.pdf
+
+# ログ
+error.log

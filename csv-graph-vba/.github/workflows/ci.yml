@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install markdownlint
+        run: npm install -g markdownlint-cli
+      - name: Lint markdown
+        run: markdownlint "**/*.md"
+
+  mermaid:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install mermaid-cli
+        run: npm install -g @mermaid-js/mermaid-cli
+      - name: Validate mermaid diagrams
+        run: |
+          find . -name "*.md" -exec grep -l "mermaid" {} \; | \
+          xargs -n1 mmdc -i {} -o /dev/null
+
+  vba-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      # ここでは Rubberduck の CLI がインストール済みである前提です
+      - name: Run VBA unit tests (Rubberduck)
+        run: |
+          rubby duck run-tests -ProjectPath src/modules
+          
